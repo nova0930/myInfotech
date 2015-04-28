@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>um.ece.semantic</groupId>
+  <artifactId>distributedReasoning</artifactId>
+  <version>0.0.1</version>
+   <packaging>jar</packaging>
+   
+   <properties>
+        <scala.version>2.10.3</scala.version>
+        <titan.version>0.4.4</titan.version>
+        <spark.version>1.0.0</spark.version>
+        <blueprints.version>2.4.0</blueprints.version>
+        <java.version>1.7</java.version>
+        <hazelcast.version>3.4</hazelcast.version>
+    </properties>
+    
+    
+    <dependencies>
+		
+		<dependency>
+	  		<groupId>um.ece.semantic</groupId>
+	  		<artifactId>modularABox</artifactId>
+	  		<version>0.0.1</version>
+  		</dependency>
+
+		
+		<dependency>
+    		<groupId>com.hazelcast</groupId>
+   		 	<artifactId>hazelcast-client</artifactId>
+    		<version>${hazelcast.version}</version>
+		</dependency>
+
+	</dependencies>
+   
+	<build>
+    <sourceDirectory>src</sourceDirectory>
+    <pluginManagement>
+			<plugins>
+				<plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+          <version>3.1.6</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<plugins>
+		
+		<plugin>  
+			<artifactId>maven-assembly-plugin</artifactId>  
+			<configuration>       
+				<descriptorRefs>      
+					<descriptorRef>package</descriptorRef>    
+				</descriptorRefs>  
+			</configuration>  
+		</plugin>
+		
+		<plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scala-compile-first</id>
+						<phase>process-resources</phase>
+						<goals>
+						    <goal>add-source</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>scala-test-compile</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>false</minimizeJar>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <artifactSet>
+				              </artifactSet>
+				              <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>reference.conf</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			
+		</plugins>
+  </build>
+  
+
+</project>

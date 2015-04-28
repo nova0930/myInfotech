@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+<property>
+<name>mapreduce.framework.name</name>
+<value>yarn</value>
+</property>
+
+<property>
+    <name>mapreduce.map.memory.mb</name>
+    <value> 4120 </value>
+  </property>
+
+<property>
+    <name>mapreduce.reduce.memory.mb</name>
+    <value> 4120 </value>
+  </property>
+
+<property>
+    <name>mapreduce.map.java.opts</name>
+    <value>{{ mapredJavaOpts }}</value>
+  </property>
+  <property>
+    <name>mapreduce.reduce.java.opts</name>
+    <value>{{ reduceJavaOpts }}</value>
+  </property>
+
+ <property>
+   <name>mapreduce.task.io.sort.mb</name>
+    <value> 2048 </value>
+ </property>
+
+    <property>
+    <name>mapred.job.reuse.jvm.num.tasks</name>
+    <value>-1</value>
+  </property>
+ 
+<property>
+    <name>mapred.tasktracker.jetty.cpu.check.enabled</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>mapred.map.tasks.speculative.execution</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>mapred.reduce.tasks.speculative.execution</name>
+    <value>false</value>
+  </property>
+<property>
+    <name>mapred.system.dir</name>
+    <value>{{ mapredRoot }}/system/mapred</value>
+  </property>
+  <property>
+    <name>mapreduce.jobtracker.staging.root.dir</name>
+    <value>/user</value>
+  </property>
+  <property>
+    <name>mapred.compress.map.output</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>mapred.output.compression.type</name>
+    <value>BLOCK</value>
+  </property>
+  <property>
+    <name>mapred.local.dir</name>
+    <value>{{ mapredRoot }}/mapred/local</value>
+  </property>
+  <property>
+    <name>mapred.tasktracker.map.tasks.maximum</name>
+    <value>{{ mapTasksMax }}</value>
+  </property>
+  <property>
+    <name>mapred.tasktracker.reduce.tasks.maximum</name>
+    <value>{{ reduceTasksMax }}</value>
+  </property>
+ <property>
+    <name>mapred.reduce.tasks</name>
+    <value>{{ totalTasks }}</value>
+  </property>
+ <property>
+    <name>mapred.task.timeout</name>
+    <value>1200000</value>
+  </property>
+</configuration>

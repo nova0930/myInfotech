@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+<property>
+ <name>fs.default.name</name>
+ <value>hdfs://{{ master }}:8020</value>
+</property>
+
+<property>
+    <name>fs.s3.impl</name>
+    <value>org.apache.hadoop.fs.s3native.NativeS3FileSystem</value>
+  </property>
+  <property>
+    <name>fs.s3.awsAccessKeyId</name>
+    <value>{{ s3PublicKey }}</value>
+  </property>
+  <property>
+    <name>fs.s3.awsSecretAccessKey</name>
+    <value>{{ s3PrivateKey }}</value>
+  </property>
+  <property>
+    <name>fs.s3n.awsSecretAccessKey</name>
+    <value>{{ s3PrivateKey }}</value>
+  </property>
+  <property>
+    <name>fs.fs.s3n.awsAccessKeyId</name>
+    <value>{{ s3PublicKey }}</value>
+  </property>
+
+<property>
+    <name>hadoop.tmp.dir</name>
+    <value>{{ tmpDir }}/hadoop-${user.name}</value>
+  </property>
+  <property>
+    <name>io.file.buffer.size</name>
+    <value>65536</value>
+  </property>
+  <property>
+    <name>hadoop.rpc.socket.factory.class.default</name>
+    <value>org.apache.hadoop.net.StandardSocketFactory</value>
+    <final>true</final>
+  </property>
+  <property>
+    <name>hadoop.rpc.socket.factory.class.ClientProtocol</name>
+    <value></value>
+  </property>
+  <property>
+    <name>hadoop.rpc.socket.factory.class.JobSubmissionProtocol</name>
+    <value></value>
+  </property>
+  <property>
+    <name>fs.trash.interval</name>
+    <value>1440</value>
+  </property>
+
+</configuration>
